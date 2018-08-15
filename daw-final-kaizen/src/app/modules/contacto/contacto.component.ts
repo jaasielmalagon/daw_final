@@ -11,15 +11,21 @@ import {Repository} from '../../model/repo';
 export class ContactoComponent implements OnInit {
 
     private contacto: Contacto = new Contacto;
-    private robot: boolean = false;
+//    private robot: boolean = false;
+    public insertado: boolean;
     constructor(private repo: Repository) {}
 
     ngOnInit() {
     }
 
     enviarDatos(form: NgForm) {
-        let save = this.repo.saveContact(this.contacto);
-        console.log(save);
-        form.reset();
+        let save = this.repo.saveContact(this.contacto).then(res => {
+            console.log(res.json());
+            let respuesta = res.json();
+            if (respuesta.success == true) {
+                this.insertado = respuesta.success;
+                form.reset();
+            }            
+        });
     }
 }

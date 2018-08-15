@@ -9,13 +9,17 @@ import {ContactoComponent} from './modules/contacto/contacto.component';
 import {NosotrosComponent} from './modules/nosotros/nosotros.component';
 import {HomeComponent} from './modules/home/home.component';
 import {ModelModule} from './model/model.module';
+import { MenuComponent } from './modules/menu/menu.component';
+import { FooterComponent } from './modules/footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NosotrosComponent,
         ContactoComponent,
-        HomeComponent
+        HomeComponent,
+        MenuComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

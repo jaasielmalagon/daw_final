@@ -10,8 +10,6 @@ export class Repository {
     }
 
     saveContact(contacto: Contacto) {        
-        this.dataSource.saveContacto(contacto).then(res => {
-            return res.json();
-        });;
+        return this.dataSource.saveContacto(contacto);
     }
 }

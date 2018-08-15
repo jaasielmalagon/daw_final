@@ -1,131 +1,75 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-expand-md">
-    <a href="/home" class="navbar-brand">
-        <img src="./assets/img/LOGO FINAL (FONDO BLANCO).png" width="30" height="30" class="d-inline-block align-top" alt="">
-        K A I Z E N
-    </a>
-    <button type="button" id="navigation" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse right" id="navbarNav" >
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="/home" class="nav-link my-2 my-sm-0 lead" >I N I C I O</a>
-            </li>
-            <li class="nav-item">
-                <a href="/nosotros" class="nav-link  my-2 my-sm-0 lead">N O S O T R O S</a>
-            </li>
-            <li class="nav-item">
-                <a href="/contacto" class="nav-link  my-2 my-sm-0 lead">C O N T A C T O</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<app-menu></app-menu>
 <div class="container">
     <div class="row" style="margin-top: 5em;">
         <div class="col-md-5 col-sm-12 bg-light p-md-5 p-3 rounded">
-            <form (ngSubmit)="enviarDatos(formulario)" #formulario="ngForm" novalidate>
-                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-                    <div *ngIf="name.errors.required">
-                        El nombre es obligatorio.
-                    </div>
-                    <div *ngIf="name.errors.minlength">
-                        El nombre debe tener al menos 8 caractéres.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input minlength="8" maxlength="50" required type="text" class="form-control" id="name" name="name"
-                           aria-describedby="emailHelp1" placeholder="Nombre completo"
-                           [(ngModel)]="contacto.name" #name="ngModel">
-                    <small id="emailHelp1" class="form-text text-muted">¿A quién nos dirijimos?</small>
-                </div>
-
-                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                    <div *ngIf="email.errors.required">
-                        La dirección de correo electrónico es obligatoria.
-                    </div>
-                    <div *ngIf="email.errors.minlength">
-                        El correo electrónico debe tener al menos 15 caractéres.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input minlength="15" maxlength="50" required type="email" class="form-control" id="email" name="email"
-                           aria-describedby="emailHelp2" placeholder="Correo electrónico"
-                           [(ngModel)]="contacto.email" #email="ngModel">
-                    <small id="emailHelp2" class="form-text text-muted">Nunca compartiremos tu correo con alguien más.</small>
-                </div>
-
-                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
-                    <div *ngIf="phone.errors.required">
-                        El número telefónico es obligatorio.
-                    </div>
-                    <div *ngIf="phone.errors.minlength">
-                        El número telefónico debe tener únicamente 10 caractéres.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Número de telefónico</label>
-                    <input minlength="10" maxlength="10" required type="tel" class="form-control" id="phone" name="phone"
-                           aria-describedby="emailHelp3" placeholder="Número de celular"
-                           [(ngModel)]="contacto.phone" #phone="ngModel">
-                    <small id="emailHelp3" class="form-text text-muted">Para contactarte personalmente.</small>
-                </div>
-                <div *ngIf="robot.invalid && (robot.dirty || robot.touched)" class="alert alert-danger">                    
-                        Por favor, indícanos que no eres un robot.
-                </div>
-                <div class="form-check">
-                    <input #robot="ngModel" [(ngModel)]="formulario.robot" type="checkbox" class="form-check-input" id="robot" name="robot" required>
-                    <label class="form-check-label" for="robot">No soy un robot</label>
-                </div>
-                <button [disabled]="!formulario.valid" type="submit" class="btn btn-primary">Enviar</button>                        
-            </form>
+        <div *ngIf="insertado == false" class="alert alert-danger">                    
+                Los datos no pudieron ser guardados. Intente otra vez.
         </div>
-        <div class="col-md-7">
-            <h2>Nos ubicamos en:</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3073.86732464279!2d-97.39268655342252!3d18.466697135521883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c582bb9b474927%3A0x181452bc07d211eb!2zVGVodWFjw6FuLCBQdWUu!5e0!3m2!1ses!2smx!4v1530852667893" width="600" height="600" frameborder="0" style="border:1px black solid" allowfullscreen></iframe>
+        <div *ngIf="insertado == true" class="alert alert-success">
+                Datos guardados correctamente.
         </div>
-    </div>    
+        <form (ngSubmit)="enviarDatos(formulario)" #formulario="ngForm" novalidate>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                    El nombre es obligatorio.
+                </div>
+                <div *ngIf="name.errors.minlength">
+                    El nombre debe tener al menos 8 caractéres.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input minlength="8" maxlength="50" required type="text" class="form-control" id="name" name="name"
+                       aria-describedby="emailHelp1" placeholder="Nombre completo"
+                       [(ngModel)]="contacto.name" #name="ngModel">
+                <small id="emailHelp1" class="form-text text-muted">¿A quién nos dirijimos?</small>
+            </div>
+
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                <div *ngIf="email.errors.required">
+                    La dirección de correo electrónico es obligatoria.
+                </div>
+                <div *ngIf="email.errors.minlength">
+                    El correo electrónico debe tener al menos 15 caractéres.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input minlength="15" maxlength="50" required type="email" class="form-control" id="email" name="email"
+                       aria-describedby="emailHelp2" placeholder="Correo electrónico"
+                       [(ngModel)]="contacto.email" #email="ngModel">
+                <small id="emailHelp2" class="form-text text-muted">Nunca compartiremos tu correo con alguien más.</small>
+            </div>
+
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                <div *ngIf="phone.errors.required">
+                    El número telefónico es obligatorio.
+                </div>
+                <div *ngIf="phone.errors.minlength">
+                    El número telefónico debe tener únicamente 10 caractéres.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Número de telefónico</label>
+                <input minlength="10" maxlength="10" required type="tel" class="form-control" id="phone" name="phone"
+                       aria-describedby="emailHelp3" placeholder="Número de celular"
+                       [(ngModel)]="contacto.phone" #phone="ngModel">
+                <small id="emailHelp3" class="form-text text-muted">Para contactarte personalmente.</small>
+            </div>
+            <div *ngIf="robot.invalid && (robot.dirty || robot.touched)" class="alert alert-danger">                    
+                Por favor, indícanos que no eres un robot.
+        </div>
+        <div class="form-check">
+            <input #robot="ngModel" [(ngModel)]="formulario.robot" type="checkbox" class="form-check-input" id="robot" name="robot" required>
+            <label class="form-check-label" for="robot">No soy un robot</label>
+        </div>
+        <button [disabled]="!formulario.valid" type="submit" class="btn btn-primary">Enviar</button>                        
+    </form>
+</div>
+<div class="col-md-7">
+    <h2>Nos ubicamos en:</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3073.86732464279!2d-97.39268655342252!3d18.466697135521883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c582bb9b474927%3A0x181452bc07d211eb!2zVGVodWFjw6FuLCBQdWUu!5e0!3m2!1ses!2smx!4v1530852667893" width="600" height="600" frameborder="0" style="border:1px black solid" allowfullscreen></iframe>
+</div>
+</div>    
 </div>      
-<footer class="page-footer font-small special-color-dark pt-4">
-    <!-- Footer Elements -->
-    <div class="container">
-        <!-- Social buttons -->
-        <ul class="list-unstyled list-inline text-center">
-            <li class="list-inline-item">
-                <a href="#" class="btn-floating btn-fb mx-1">
-                    <i class="fab fa-facebook-square"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="btn-floating btn-tw mx-1">
-                    <i class="fab fa-twitter"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="btn-floating btn-gplus mx-1">
-                    <i class="fab fa-google-plus"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a  href="#" class="btn-floating btn-li mx-1">
-                    <i class="fab fa-linkedin"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#" class="btn-floating btn-dribbble mx-1">
-                    <i class="fab fa-dribbble"> </i>
-                </a>
-            </li>
-        </ul>
-        <!-- Social buttons -->
-
-    </div>
-    <!-- Footer Elements -->
-
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="/home"> Kaizen Software</a> Todos los derechos reservados.
-    </div>
-    <!-- Copyright -->
-</footer>
+<app-footer></app-footer>
